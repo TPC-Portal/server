@@ -48,7 +48,18 @@ Example response:
 {
     "message": "Resume processed successfully",
     "file": {
-        "filename": "1234567890-resume.pdf",
+"# server" 
+
+## Environment variables
+
+- **Add a `.env` file in the `server/` directory** with your Gemini or Google credentials. Example variables to include:
+
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
+```
+
+- The code uses `python-dotenv` to load variables from `.env`. Do not commit secrets — add `/server/.env` to `.gitignore`.
         "path": "uploads/1234567890-resume.pdf",
         "size": 12345
     },

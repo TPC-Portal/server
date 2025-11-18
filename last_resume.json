@@ -1,0 +1,56 @@
+{
+  "filename": "SDE-normal.pdf",
+  "uploaded_at": "2025-11-18T22:03:46.061675",
+  "role": "",
+  "company": "",
+  "text": "Sankalp Gupta\n# guptasankalp2004@gmail.com (cid:132) +91 9314635933 (cid:240) sankalp Gupta § Sankalpgupta0\nSummary\nFull-stackdeveloperandMLenthusiastwithhands-onexperienceinbuildingscalablewebapps,real-timesystems,\nand AI-driven solutions. Skilled in MERN, Django, cloud deployment, and deep learning, with strong problem-\nsolving and team collaboration abilities.\nEducation\nLNM Institute of Information Technology 2022 – 2026\nB.Tech in Communication and Computer Engineering CGPA: 6.24/10\nChildren’s Academy 2020 – 2022\n12th in PCM Percentage: 92%\nExperience\nFull Stack Intern Dec 2024 – Apr 2025\nKoshpal Fintect Management LLP LOR 2 COI 2\n◦ Built and optimized React Native components, improving app responsiveness and reducing load times by\n25\n◦ Developed and integrated secure REST APIs (Node.js/Express.js + MongoDB) to handle UPI transactions\nwith high reliability.\n◦ Implemented data visualization and real-time financial features, enhancing user engagement and boosting\nretention.\nFull Stack Intern Jul 2024 – sep 2024\nAtiUttam LOR 2 COI 2\n◦ Built and deployed a trading insights web app with real-time indices and crypto candle updates, enabling\n1000+ concurrent users.\n◦ Implemented authentication, profile management, and watchlists, improving user retention.\n◦ Deployed on Azure with CI/CD and Git, ensuring 99% uptime and secure access.\nProjects\nVideo Hosting Website and Mobile App github 2 link 2\n◦ Engineered a YouTube-like video hosting platform with 100K+ lines of code, featuring seamless cross-\nplatform (web + mobile) support.\n◦ ImplementedsImplementedsocialinteractionmodules(likes,dislikes,comments,subscriptions)thatboosted\nuser engagement and retention.\n◦ Optimizedvideodeliverypipeline, reducingloadtimeby40%throughRediscachingandAPIratelimiting,\nenhancing scalability and performance.\n◦ Technologies Used: Express, React, React Native, MongoDB, Cloudinary, Redis, Docker, WebSockets.\nReal-Time Chat Application Client 2 Server 2 link 2\n◦ Developed a WhatsApp-style chat application supporting real-time messaging, media sharing, and video\ncalls across platforms.\n◦ Integrated advanced features like image/video/PDF sharing and real-time notifications, significantly en-\nhancing user experience.\n◦ Achieved sub-200ms message delivery latency using WebSockets with Socket.IO for high responsiveness.\n◦ Technologies Used: Express, React, MongoDB, Cloudinary, Socket.io.\nAchievements\nSheher Connect – Reputation-Driven News Platform github 2\n◦ Designed a reputation-driven scoring system for validating news, improving prototype trust levels by 70\n◦ Built a decentralized news platform with credibility checks to combat misinformation in citizen journalism.\n◦ Secured 3rd place in the hackathon , competing against 80+teams.\nSkills\n◦ Programming: Java, Python, JavaScript.\n◦ Tools & Platforms: AWS, Git, Github Expo, Vite, Render, Redis, Docker, Postman, Clerk, Appwrite,\nFirebase.\n◦ Frameworks:React, Node.js, Django, Flask, Vue.\n◦ Databases:MongoDB, Redis, Postgress.\n◦ ML/AI:Deep Learning, NLP, Transformers.\n",
+  "analysis": {
+    "summary": "Sankalp is a promising full-stack developer and ML enthusiast with practical experience in building scalable web applications, real-time systems, and AI-driven solutions. They demonstrate proficiency across the MERN stack, Django, cloud deployment (Azure, AWS), and deep learning, backed by strong project work and internship experience.",
+    "strengths": [
+      "Strong Full-Stack Proficiency: Demonstrated expertise in MERN stack (React, Node.js, Express, MongoDB) and Python frameworks (Django, Flask, Vue).",
+      "Real-time Systems Experience: Proven ability to build and optimize real-time applications (chat app, trading insights, video hosting) using WebSockets and Redis.",
+      "Cloud & DevOps Exposure: Experience with Azure deployment, CI/CD, Git, Docker, AWS, and other cloud-related tools (Render, Firebase, Appwrite).",
+      "Quantifiable Achievements: Many bullet points include metrics (e.g., 25% load time reduction, 1000+ concurrent users, 40% load time reduction, sub-200ms latency, 70% trust level improvement, 3rd place in hackathon).",
+      "Diverse Project Portfolio: Significant projects showcasing complex features, scalability, and cross-platform development (web + mobile).",
+      "ML/AI Interest & Skills: Explicitly mentions ML/AI skills (Deep Learning, NLP, Transformers) and an 'ML enthusiast' summary.",
+      "Problem-Solving & Innovation: Hackathon achievement and project descriptions highlight strong problem-solving and competitive success."
+    ],
+    "shortcomings": [
+      "Future-Dated Internships: The internship dates (Dec 2024 – Apr 2025, Jul 2024 – Sep 2024) are in the future, which is a critical error and needs immediate correction.",
+      "Low CGPA: A CGPA of 6.24/10 might be a hurdle for some companies, especially those with strict academic cutoffs.",
+      "Missing Units/Clarity: Some metrics lack units (e.g., 'reducing load times by 25' should be '25%', 'improving prototype trust levels by 70' should be '70%').",
+      "Formatting Issues: Presence of OCR artifacts like `(cid:132)` and `(cid:240)`, and typos like 'ImplementedsImplementedsocialinteractionmodules'.",
+      "Lack of Specific ML/AI Projects: While ML/AI skills are listed, there isn't a dedicated project showcasing their practical application, which could strengthen the 'ML enthusiast' claim.",
+      "Limited Professional Experience: While the internships are valuable, they are still internships. The candidate is likely seeking entry-level full-time roles.",
+      "Unclear 'LOR 2 COI 2': These placeholders under experience should be clarified or removed."
+    ],
+    "recommended_roles": [
+      "Full Stack Developer (Entry-Level/Junior)",
+      "Backend Developer (Entry-Level/Junior)",
+      "Frontend Developer (Entry-Level/Junior)",
+      "Software Engineer (Entry-Level)",
+      "ML Engineer (Entry-Level, with additional ML-specific projects)",
+      "DevOps Engineer (Entry-Level, given cloud/Docker/CI/CD experience)"
+    ],
+    "recommended_companies": [
+      "Tech Startups (especially those in Fintech, E-commerce, or Communication/Media sectors)",
+      "Fintech Companies (given experience with UPI transactions and trading insights)",
+      "Companies building real-time applications (e.g., social media, communication platforms, collaborative tools)",
+      "Cloud-native companies leveraging AWS/Azure/Docker heavily",
+      "Mid-sized to large tech companies with strong engineering cultures and product-focused development",
+      "Companies with an AI/ML focus (if the candidate further develops their ML portfolio)"
+    ],
+    "overall_assessment": "Sankalp is a highly promising candidate with a strong technical foundation, impressive project work, and relevant internship experience for an entry-level software engineering role. Their ability to build scalable, real-time, and cross-platform applications, coupled with cloud deployment skills, makes them very marketable. The main immediate concerns are the incorrect internship dates and the relatively low CGPA, which might require proactive addressing or focusing on companies that prioritize practical skills over academic scores. With minor refinements, the resume can be highly effective.",
+    "recommendations": [
+      "Correct Internship Dates Immediately: This is the most critical fix. Ensure all dates accurately reflect past experiences (e.g., Dec 2023 – Apr 2024).",
+      "Quantify All Metrics: Add units (e.g., '%') to all numerical achievements (e.g., 'reducing load times by 25%' and 'improving prototype trust levels by 70%').",
+      "Proofread Thoroughly: Correct all typos (e.g., 'ImplementedsImplementedsocialinteractionmodules') and remove any OCR artifacts like `(cid:132)` and `(cid:240)`.",
+      "Address CGPA (Strategically): While not always a deal-breaker, be prepared to emphasize practical skills, projects, and internships even more strongly when applying to companies with strict academic cutoffs. For other companies, the strong practical experience should outweigh the GPA.",
+      "Add More ML/AI Projects: To strengthen the 'ML enthusiast' claim and open up more ML-focused roles, consider adding a dedicated project showcasing practical application of Deep Learning, NLP, or Transformers.",
+      "Refine 'Skills' Section: Consider grouping related skills (e.g., 'Cloud Platforms: AWS, Azure, Render, Firebase, Appwrite' or 'DevOps: Git, Docker, CI/CD'). Explicitly add Azure to 'Tools & Platforms' as it was used in an internship.",
+      "Add a Link to a Personal Portfolio/Website: If available, a personal website showcasing projects, technical blogs, or GitHub profile can significantly enhance the application.",
+      "Clarify 'LOR 2 COI 2': If these refer to Letters of Recommendation or Certificates of Internship, state them clearly. Otherwise, remove these internal codes from the public resume.",
+      "Tailor Resume for Specific Roles: While the current resume is broad, tailoring the summary and bullet points to emphasize either full-stack, backend, frontend, or ML aspects depending on the target role can be beneficial."
+    ]
+  }
+}
