@@ -31,13 +31,8 @@ def analyze_resume_with_gemini(text, api_key, role='', company=''):
     """Call Google Gemini API directly via REST to analyze resume text."""
     logger.info(f'Function [analyze_resume_with_gemini] called with text length: {len(text)}, role: {role or "unspecified"}, company: {company or "unspecified"}')
     
-    # List of models to try in order (fallback mechanism)
-    models = [
-        'gemini-2.5-flash',
-        'gemini-2.0-flash-exp',
-        'gemini-1.5-flash',
-        'gemini-1.5-flash-latest'
-    ]
+    # Use only gemini-2.5-flash model
+    model = 'gemini-2.0-flash'
     
     # Build dynamic prompt based on role and company
     if role and company:
@@ -95,17 +90,22 @@ Resume text:
 """
     else:
         prompt = f"""
-Analyze the following resume and provide career guidance.
+Analyze the following resume and provide comprehensive career guidance.
 
 Provide a detailed analysis in JSON format with the following structure:
 {{
   "summary": "Brief 2-3 sentence summary of the candidate",
   "strengths": ["list of key strengths"],
   "shortcomings": ["areas for improvement"],
-  "recommended_roles": ["roles that would be a best fit based on skills and experience"],
-  "recommended_companies": ["types of companies or specific companies that match the profile"],
+  "recommended_roles": ["3-5 specific roles that would be a best fit based on skills and experience"],
+  "recommended_companies": ["5-8 specific company names (like Google, Amazon, Microsoft, etc.) that match the profile and experience level"],
+  "roadmap": {{
+    "short_term": ["2-3 actionable steps to take in the next 1-3 months"],
+    "mid_term": ["2-3 goals to achieve in the next 3-6 months"],
+    "long_term": ["2-3 strategic objectives for 6-12 months"]
+  }},
   "overall_assessment": "General assessment of career readiness and marketability",
-  "recommendations": ["specific actionable improvements"]
+  "recommendations": ["specific actionable improvements for career growth"]
 }}
 
 Resume text:
@@ -127,79 +127,83 @@ Resume text:
         "Content-Type": "application/json"
     }
     
-    # Try each model with retry logic
-    for model_index, model in enumerate(models):
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
-        logger.info(f'Attempting to use model: {model}')
-        
-        # Retry logic: 3 attempts with exponential backoff
-        max_retries = 3
-        for attempt in range(max_retries):
-            try:
-                logger.info(f'Sending request to Gemini API (attempt {attempt + 1}/{max_retries})')
-                response = requests.post(url, headers=headers, data=json.dumps(payload), timeout=30)
-                
-                # If successful, process response
-                if response.status_code == 200:
-                    result = response.json()
-                    # Extract the generated text from the response
-                    if 'candidates' in result and len(result['candidates']) > 0:
-                        content = result['candidates'][0]['content']['parts'][0]['text']
-                        logger.info(f'Function [analyze_resume_with_gemini] completed successfully with {model} - Generated {len(content)} characters')
-                        
-                        # Try to parse as JSON, fallback to raw content
-                        try:
-                            # Clean markdown code blocks if present
-                            cleaned = content.strip()
-                            if cleaned.startswith('```json'):
-                                cleaned = cleaned[7:]
-                            if cleaned.startswith('```'):
-                                cleaned = cleaned[3:]
-                            if cleaned.endswith('```'):
-                                cleaned = cleaned[:-3]
-                            parsed = json.loads(cleaned.strip())
-                            return {'content': parsed, 'raw': content}
-                        except json.JSONDecodeError:
-                            logger.warning('Response is not valid JSON, returning as raw text')
-                            return {'content': {'raw_analysis': content}, 'raw': content}
-                    else:
-                        logger.error(f'No content returned from Gemini API with {model}')
-                        # Don't return error yet, try next model
-                        break
-                
-                # If 503 (service unavailable) or 429 (rate limit), retry with backoff
-                elif response.status_code in [503, 429]:
+    # Use gemini-2.5-flash with retry logic
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+    logger.info(f'Using model: {model}')
+    
+    # Retry logic: 3 attempts with exponential backoff
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            logger.info(f'Sending request to Gemini API (attempt {attempt + 1}/{max_retries})')
+            response = requests.post(url, headers=headers, data=json.dumps(payload), timeout=30)
+            
+            # If successful, process response
+            if response.status_code == 200:
+                result = response.json()
+                # Extract the generated text from the response
+                if 'candidates' in result and len(result['candidates']) > 0:
+                    content = result['candidates'][0]['content']['parts'][0]['text']
+                    logger.info(f'Function [analyze_resume_with_gemini] completed successfully with {model} - Generated {len(content)} characters')
+                    
+                    # Try to parse as JSON, fallback to raw content
+                    try:
+                        # Clean markdown code blocks if present
+                        cleaned = content.strip()
+                        if cleaned.startswith('```json'):
+                            cleaned = cleaned[7:]
+                        if cleaned.startswith('```'):
+                            cleaned = cleaned[3:]
+                        if cleaned.endswith('```'):
+                            cleaned = cleaned[:-3]
+                        parsed = json.loads(cleaned.strip())
+                        return {'content': parsed, 'raw': content}
+                    except json.JSONDecodeError:
+                        logger.warning('Response is not valid JSON, returning as raw text')
+                        return {'content': {'raw_analysis': content}, 'raw': content}
+                else:
+                    logger.error(f'No content returned from Gemini API with {model}')
                     if attempt < max_retries - 1:
-                        wait_time = (2 ** attempt) * 1  # Exponential backoff: 1s, 2s, 4s
-                        logger.warning(f'Model {model} returned {response.status_code}, retrying in {wait_time}s...')
-                        time.sleep(wait_time)
                         continue
                     else:
-                        logger.warning(f'Model {model} failed after {max_retries} attempts with status {response.status_code}')
-                        break  # Try next model
-                
-                # For other errors, try next model immediately
-                else:
-                    logger.warning(f'Model {model} returned status {response.status_code}: {response.text[:200]}')
-                    break  # Try next model
-                    
-            except requests.exceptions.Timeout:
+                        return {'error': f'No content returned from {model}'}
+            
+            # If 503 (service unavailable) or 429 (rate limit), retry with backoff
+            elif response.status_code in [503, 429]:
                 if attempt < max_retries - 1:
-                    wait_time = (2 ** attempt) * 1
-                    logger.warning(f'Request timeout with {model}, retrying in {wait_time}s...')
+                    wait_time = (2 ** attempt) * 1  # Exponential backoff: 1s, 2s, 4s
+                    logger.warning(f'Model {model} returned {response.status_code}, retrying in {wait_time}s...')
                     time.sleep(wait_time)
                     continue
                 else:
-                    logger.error(f'Request timeout with {model} after {max_retries} attempts')
-                    break  # Try next model
-                    
-            except requests.exceptions.RequestException as e:
-                logger.error(f'Request exception with {model}: {str(e)}')
-                break  # Try next model
-            except (KeyError, IndexError) as e:
-                logger.error(f'Failed to parse API response from {model}: {str(e)}')
-                break  # Try next model
+                    logger.warning(f'Model {model} failed after {max_retries} attempts with status {response.status_code}')
+                    return {'error': f'{model} returned status {response.status_code}'}
+            
+            # For other errors, return error
+            else:
+                logger.warning(f'Model {model} returned status {response.status_code}: {response.text[:200]}')
+                if attempt < max_retries - 1:
+                    continue
+                else:
+                    return {'error': f'{model} returned status {response.status_code}'}
+                
+        except requests.exceptions.Timeout:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 1
+                logger.warning(f'Request timeout with {model}, retrying in {wait_time}s...')
+                time.sleep(wait_time)
+                continue
+            else:
+                logger.error(f'Request timeout with {model} after {max_retries} attempts')
+                return {'error': f'Request timeout with {model}'}
+                
+        except requests.exceptions.RequestException as e:
+            logger.error(f'Request exception with {model}: {str(e)}')
+            return {'error': f'Request exception: {str(e)}'}
+        except (KeyError, IndexError) as e:
+            logger.error(f'Failed to parse API response from {model}: {str(e)}')
+            return {'error': f'Failed to parse response: {str(e)}'}
     
-    # If all models failed
-    logger.error('Function [analyze_resume_with_gemini] completed - All models failed')
-    return {'error': 'All Gemini models are currently unavailable. Please try again in a few moments.'}
+    # If all retries failed
+    logger.error('Function [analyze_resume_with_gemini] completed - All attempts failed')
+    return {'error': 'Gemini API is currently unavailable. Please try again in a few moments.'}
